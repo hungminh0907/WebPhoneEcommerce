@@ -1,0 +1,82 @@
+﻿@model WebPhoneEcommerce.Models.Entity.Product
+@{
+    ViewData["Title"] = "addSP";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1> Thêm Sản Phẩm</h1>
+<form action="/admin/Them" method="post" enctype="multipart/form-data" name="formValidation" id="formValidation">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="card-title fw-semibold mb-4">Hình ảnh sản phẩm</h5>
+                    <div class="card">
+                        <div class="d-flex justify-content-center align-items-center py-2">
+                            <img id="showimage" style="width: 400px; height: 450px;" src="~/img/noimage.jpg" alt="..." />
+                        </div>
+                        <input type="file" class="form-control" id="hinhanh" name="hinhanh" onchange="readURL(this)" aria-describedby="image">
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="card-title fw-semibold mb-4">Thông tin sản phẩm</h5>
+                    <div class="card">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body">
+                            <div class=" form-group">
+                                <label for="idproduct" class="form-label" >ID Sản Phẩm</label>
+                                <input type="text" palceholder="id sản phẩm" class="form-control" id="ProductId" name="ProductId" >
+                                 <small class=" form-Message" > </small><hr />
+                            </div>
+
+                            <div class=" form-group">
+                                <label for="nameproduct" class="form-label">Tên Sản Phẩm</label>
+                                <input type="text" class="form-control" id="ProductName" name="ProductName"  aria-describedby="">
+                               @*  <small> Error</small><hr /> *@
+
+                            </div>
+                                <label for="exampleInputEmail1" class="form-label">Mô tả</label>
+                                <input type="text" class="form-control" id="Description" name="Description"  aria-describedby="">
+                               @*  <small> Error</small><hr /> *@
+
+                            <div class=" form-group">
+                                <label for="exampleInputEmail1" class="form-label">Giá</label>
+                                <input type="text" class="form-control" id="UnitPrice" name="UnitPrice"  aria-describedby="">
+                                @* <small> Error</small><hr /> *@
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <h5 class="card-title fw-semibold mb-4">Bài viết </h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Mô tả chi tiế</h5>
+                            <textarea name="message" style="width:350px; height:600px;">.......................</textarea>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="col-md-12 btn btn-primary"> ADD </button>
+        </div>
+    </div>
+
+</form>
+<script src="~/js/validator.js"></script>
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#showimage').attr('src', e.target.result).width(400).height(450);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>

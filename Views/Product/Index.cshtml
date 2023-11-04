@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<form class="col-3 d-flex flex-row gap-2" style="align-items: baseline;"
+      asp-area="Admin"
+      asp-controller="HomeAdmin"
+      asp-action="DanhSach"
+      method="get">
+    <div class="mb-3">
+        <input type="text" class="form-control" id="timkiem" name="timkiem" aria-describedby="tim kiem noi dung">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<table class="table table-striped overflow-scroll">
+    <thead>
+        <tr class="text-center">
+            <th scope="col">STT</th>
+            <th scope="col">Ảnh đại diện</th>
+            <th scope="col">Mã sản phẩm</th>
+            <th scope="col">Tên sản phẩm </th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Giá tiền</th>
+            @* <th scope="col">Trạng thái</th> *@
+            <th scope="col">Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            int i = 0;
+            foreach (var item in Model)
+            {
+                i++;
+                <tr>
+                    <td class="text-center">@item.Id</td>
+                    @* <td class="text-center">
+            <img style="width: 50px; height: 50px;" src="@item.UrlImage" />
+            </td> *@
+                    <td class="text-center">@item.ProductID</td>
+                    <td class="text-center">@item.ProductName</td>
+                    <td class="text-center">@item.Description</td>
+                    <td class="text-center">@item.UnitPrice</td>
+                    @* <td class="text-center @((bool)item.IsActive ? "text-success" : "text-danger")">
+            @((bool)item.IsActive ? "Kích hoạt" : "Tạm khóa")
+            </td> *@
+                    <td class="text-center">
+                        @* <a class="px-2" href="@Url.Action("Xoa", "Khoa", new { id = item.Id })"> *@
+                        <a class="px-2" asp-area="" asp-controller="Khoa" asp-action="Xoa" asp-route-id="@item.Id">
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </a>
+                        @* <a class="px-2" href="@Url.Action("CapNhat", "Khoa", new { id = item.Id})"> *@
+                        <a class="px-2">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        @* </a> *@
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <caption>
+                Không có dữ liệu
+            </caption>
+        }
+
+    </tbody>
+
+</table>
