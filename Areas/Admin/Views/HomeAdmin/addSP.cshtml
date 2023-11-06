@@ -70,7 +70,7 @@
                             <div class=" form-group">
                                 <label for="idproduct" class="form-label" >ID Sản Phẩm</label>
                                 <input type="text" palceholder="id sản phẩm" class="form-control" id="ProductId" name="ProductId" >
-                                <span id="IdMsg">  </span>
+                                <span id="IdMsg" style="text-align">  </span>
                             </div>
 
                             <div class=" form-group">
@@ -111,15 +111,24 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function () 
+    {
         $("input").blur(function () {
             $("#ProductId").css("border", "2px solid red");
-            $("#IdMsg").html("<p>Vui lòng điền thông tin </p>");
+                $("#IdMsg").html("<p>Vui lòng điền thông tin </p>");
+            
             $("#ProductName").css("border", "2px solid red");
-           
-            $("#NameMsg").html("<p>Vui lòng điền thông tin </p>");
+                $("#NameMsg").html("<p>Vui lòng điền thông tin </p>");
+        $("input").focus(function () {
+            $("#ProductId").css("border", "2px solid black ");
+                $("#IdMsg").hide();
+            $("#ProductName").css("border", "2px solid black");
+                $("#NameMsg").hide();
+        });
         });
     });
+       
+           
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
