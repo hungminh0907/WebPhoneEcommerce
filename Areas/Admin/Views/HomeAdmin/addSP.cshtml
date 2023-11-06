@@ -23,10 +23,6 @@
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
             <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                 <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-                    </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body">
                             <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
@@ -54,7 +50,7 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h5 class="card-title fw-semibold mb-4">Hình ảnh sản phẩm</h5>
                     <div class="card">
                         <div class="d-flex justify-content-center align-items-center py-2">
@@ -65,7 +61,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <h5 class="card-title fw-semibold mb-4">Thông tin sản phẩm</h5>
                     <div class="card">
                         <div class="card-header">
@@ -74,13 +70,13 @@
                             <div class=" form-group">
                                 <label for="idproduct" class="form-label" >ID Sản Phẩm</label>
                                 <input type="text" palceholder="id sản phẩm" class="form-control" id="ProductId" name="ProductId" >
-                                 <small class=" form-Message" > </small><hr />
+                                <span id="IdMsg">  </span>
                             </div>
 
                             <div class=" form-group">
                                 <label for="nameproduct" class="form-label">Tên Sản Phẩm</label>
                                 <input type="text" class="form-control" id="ProductName" name="ProductName"  aria-describedby="">
-                               @*  <small> Error</small><hr /> *@
+                                <span id="NameMsg">  </span>
 
                             </div>
                                 <label for="exampleInputEmail1" class="form-label">Mô tả</label>
@@ -113,8 +109,17 @@
     </div>
 
 </form>
-<script src="~/js/validator.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    $(document).ready(function () {
+        $("input").blur(function () {
+            $("#ProductId").css("border", "2px solid red");
+            $("#IdMsg").html("<p>Vui lòng điền thông tin </p>");
+            $("#ProductName").css("border", "2px solid red");
+           
+            $("#NameMsg").html("<p>Vui lòng điền thông tin </p>");
+        });
+    });
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -124,5 +129,5 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-
+    
 </script>
