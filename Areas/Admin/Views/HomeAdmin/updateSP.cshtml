@@ -47,19 +47,19 @@
     </nav>
 </header>
 <!--  Header End -->
-<form action="/admin/Cap-Nhat" method="post">
+<form action="/admin/Cap-Nhat" method="post" enctype="multipart/form-data">
         <div class="card">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
-                        <h5 class="card-title fw-semibold mb-4">Hình ảnh sản phẩm</h5>
+                         <h5 class="card-title fw-semibold mb-4">Hình ảnh sản phẩm</h5>
                         <div class="card">
                             <div class="d-flex justify-content-center align-items-center py-2">
-                                <img id="showimage" style="width: 400px; height: 450px;" src="~/img/noimage.jpg" alt="..." />
+                                @* <img id="showimage" style="width: 400px; height: 450px;" src="~/img/noimage.jpg" alt="..." /> *@
+                                <img id="showimage" style="width: 400px; height: 450px;" src=@Model.Urlimg alt="..." />
                             </div>
                             <input type="file" class="form-control" id="hinhanh" name="hinhanh" onchange="readURL(this)" aria-describedby="image">
-
-                        </div>
+                        </div> 
                     </div>
 
                     <div class="col-md-6">
@@ -107,4 +107,15 @@
     $('#UnitPrice').blur(function () { 
         $(this).formatNumber({ format: "#,###.00", locale: "us" });
     });
+</script>
+<script>
+    function readURL(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $('#showimage').attr('src', e.target.result).width(450).height(300);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
