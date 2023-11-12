@@ -8,6 +8,15 @@
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link href="~/css/font-awesome.min.css" rel="stylesheet" />
 
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sidebarmenu.js"></script>
+    <script src="../assets/js/app.min.js"></script>
+    <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="~/assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+
+
 </head>
 
 <body>
@@ -41,11 +50,35 @@
                             <span class="hide-menu">Dashboard</span>
                         </a>
                     </li>
+
+
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                        <span class="hide-menu">UI COMPONENTS</span>
+                        @* <span class="hide-menu">UI COMPONENTS</span> *@
+                            <span class="hide-menu">Sản Phẩm</span>
                     </li>
-                    <li class="sidebar-item nav-item dropdown">
+
+                    <li class="sidebar-item">
+                        @* <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false"> *@
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action="DanhSach" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-shopping-cart"> </i>
+                            </span>
+                            <span class="hide-menu">Danh Sách Sản Phẩm</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action="addSP" aria-expanded="false">
+                            <span>
+                                <i class="ti ti-shopping-cart"> </i>
+                            </span>
+                                <span class="hide-menu">Thêm Sản Phẩm</span>
+                        </a>
+                    </li>
+
+
+                    @* <li class="sidebar-item nav-item dropdown">
                         <div class="sidebar-link nav-link dropdown-toggle" href="./ui-buttons.html" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <span>
                                 <i class="ti ti-shopping-cart"> </i>
@@ -53,49 +86,48 @@
                             <span class="hide-menu"> Sản Phẩm </span>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li class="dropdown-item">
-                                    <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Them">Danh Sách Sản Phẩm </a>
-                                    
-                                </li>
+                                        <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action="DanhSach">Danh Sách Sản Phẩm</a>
+                                    </li>
                                 <li class="dropdown-item">
-                                    <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Them">Danh Sách Sản Phẩm </a>
-                                    
-                                </li>
-                                    @* <div class="dropdown-item" href="http://localhost:5294/admin/Them">Thêm Sản Phẩm </div> *@
+                                        <a class="sidebar-link" asp-area="Admin" asp-controller="HomeAdmin" asp-action="Them">Thêm Sản Phẩm</a>
+                                    </li>
                             </ul>
                         </div>
-                    </li>
-                    <li class="sidebar-item">
+                    </li> *@
+
+                    
+                  @*   <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
                             <span>
                                 <i class="ti ti-alert-circle"></i>
                             </span>
                             <span class="hide-menu">Alerts</span>
                         </a>
-                    </li>
-                    <li class="sidebar-item">
+                    </li> *@
+                    @* <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
                             <span>
                                 <i class="ti ti-cards"></i>
                             </span>
                             <span class="hide-menu">Card</span>
                         </a>
-                    </li>
-                    <li class="sidebar-item">
+                    </li> *@
+                    @* <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-forms.html" aria-expanded="false">
                             <span>
                                 <i class="ti ti-file-description"></i>
                             </span>
                             <span class="hide-menu">Forms</span>
                         </a>
-                    </li>
-                    <li class="sidebar-item">
+                    </li> *@
+                    @* <li class="sidebar-item">
                         <a class="sidebar-link" href="./ui-typography.html" aria-expanded="false">
                             <span>
                                 <i class="ti ti-typography"></i>
                             </span>
                             <span class="hide-menu">Typography</span>
                         </a>
-                    </li>
+                    </li> *@
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">AUTH</span>
@@ -116,7 +148,7 @@
                             <span class="hide-menu">Register</span>
                         </a>
                     </li>
-                    <li class="nav-small-cap">
+                   @*  <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                         <span class="hide-menu">EXTRA</span>
                     </li>
@@ -127,15 +159,15 @@
                             </span>
                             <span class="hide-menu">Icons</span>
                         </a>
-                    </li>
-                    <li class="sidebar-item">
+                    </li> *@
+                    @* <li class="sidebar-item">
                         <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
                             <span>
                                 <i class="ti ti-aperture"></i>
                             </span>
                             <span class="hide-menu">Sample Page</span>
                         </a>
-                    </li>
+                    </li> *@
                 </ul>
                 <div class="unlimited-access hide-menu bg-light-primary position-relative mb-7 mt-5 rounded">
                     <div class="d-flex">
@@ -154,6 +186,7 @@
         <!-- End Sidebar scroll-->
     </aside>
     <!--  Sidebar End -->
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -166,19 +199,8 @@
 
  </div>
 </body>
-<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/sidebarmenu.js"></script>
-<script src="../assets/js/app.min.js"></script>
-<script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-<script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-<script src="../assets/js/dashboard.js"></script>
 
 @await RenderSectionAsync("Scripts", required: false)
+
 </html>
-
-
-
-
-
 
