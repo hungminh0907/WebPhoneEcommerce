@@ -14,8 +14,28 @@
     <div class="mb-3">
         <input type="text" class="form-control" id="timkiem" name="timkiem" aria-describedby="tim kiem noi dung">
     </div>
-    <button type="submit" class="btn btn-primary" asp-controller="HomeAdmin" asp-action="DanhSach">Submit</button>
+    <button type="submit" id="btn-search" class="btn btn-primary" asp-controller="HomeAdmin" asp-action="DanhSach">Submit</button>
 </form>
+
+
+
+@* auto search script *@
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#timkiem").keypress(function (event) {
+            if (event.which == 13) {
+                $("#btn-search").click();
+            }
+        });
+    });
+    
+</script>
+@* end auto search script *@
+
+
+
+
 <table class="table table-striped overflow-scroll">
     <thead>
         <tr class="text-center">
