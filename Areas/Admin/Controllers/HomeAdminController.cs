@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
 using WebPhoneEcommerce.Models.Entity;
 using WebPhoneEcommerce.Common;
+using WebPhoneEcommerce.Models.Curd;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
@@ -27,12 +28,28 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
 
 
         [Route("DanhSach")]
-        public IActionResult DanhSach(string? timkiem)
+        public async Task<IActionResult> DanhSach(string? timkiem)
         {
-            var items = _context.Products.Where(c => (c.Filter ?? "").Contains((timkiem ?? "").ToLower())).ToList();
-            return View(items);
+            //var items = _context.Products.Where(c => (c.Filter ?? "").Contains((timkiem ?? "").ToLower())).ToList();
+            var Items = await getCurd();
+            return View(Items);
         }
 
+        public async Task<ResultApi> getCurd()
+        {
+            string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
+            using (var client = new HttpClient())
+            {
+                var res = await client.GetAsync(Url) ;
+
+                if(res.IsSuccessStatusCode)
+                {
+                    var ListItem = new List<ResultApi>();
+                    ListItem = res.Content.ReadAsAsync<List<ResultApi>>().Result;
+                }
+                return null;
+            }
+        }
         
         [Route("Them")]
         public IActionResult addSP()
