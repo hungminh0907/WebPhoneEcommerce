@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using WebPhoneEcommerce.Models.Entity;
 using WebPhoneEcommerce.Common;
 using WebPhoneEcommerce.Models.Curd;
+using Newtonsoft.Json;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
@@ -35,7 +36,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             return View(Items);
         }
 
-        public async Task<ResultApi> getCurd()
+        public async Task<List<ViewModelCurd>>getCurd()
         {
             string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
             using (var client = new HttpClient())
@@ -44,11 +45,26 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
 
                 if(res.IsSuccessStatusCode)
                 {
-                    var ListItem = new List<ResultApi>();
-                    ListItem = res.Content.ReadAsAsync<List<ResultApi>>().Result;
+                    var ViewlistItem = new List<ViewModelCurd>();
+                    var ListItem = res.Content.ReadAsAsync<List<ResultApi>>().Result;
+                    foreach (var item in ListItem)
+                    {
+                        ViewModelCurd ShowList = new ViewModelCurd();
+                        ShowList.Id = item.Id;
+                        ShowList.ProductId = item.ProductId;
+                        ShowList.ProductName = item.ProductName;
+                        ShowList.Description = item.Description;
+                        ShowList.UnitPrice = item.UnitPrice;
+                       
+                        //ShowList.Urlimg = JsonConvert.DeserializeObject<List<ResultApiImg>>(item.Urlimg);
+                        
+                       
+                        ViewlistItem.Add(ShowList);
+                    }
+                    return ViewlistItem;
                 }
-                return null;
             }
+            return null;
         }
         
         [Route("Them")]

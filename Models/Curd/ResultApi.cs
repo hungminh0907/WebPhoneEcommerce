@@ -23,7 +23,7 @@ namespace WebPhoneEcommerce.Models.Curd
         [StringLength(255)]
         public string? Filter { get; set; }
         //public List<ResultApiImg> Urlimg { get; set; }
-        public string? Urlimg { get; set; }
+        public string Urlimg { get; set; }
     }
 
     public class ResultApiImg
