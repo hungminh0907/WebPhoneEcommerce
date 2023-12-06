@@ -46,6 +46,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
                 if(res.IsSuccessStatusCode)
                 {
                     var ViewlistItem = new List<ViewModelCurd>();
+
                     var ListItem = res.Content.ReadAsAsync<List<ResultApi>>().Result;
                     foreach (var item in ListItem)
                     {
@@ -55,10 +56,10 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
                         ShowList.ProductName = item.ProductName;
                         ShowList.Description = item.Description;
                         ShowList.UnitPrice = item.UnitPrice;
-                       
-                        //ShowList.Urlimg = JsonConvert.DeserializeObject<List<ResultApiImg>>(item.Urlimg);
-                        
-                       
+
+                        ShowList.Urlimg = JsonConvert.DeserializeObject<List<ResultApiImg>>(item.Urlimg);
+
+
                         ViewlistItem.Add(ShowList);
                     }
                     return ViewlistItem;
