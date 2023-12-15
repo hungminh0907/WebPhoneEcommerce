@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebPhoneEcommerce.Models
+namespace WebPhoneEcommerce.Areas.Admin.Models
 {
     public class Login
     {
         [Key, Column(Order = 1)]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idUser { get; set; }
         [Required]
         [StringLength(50, MinimumLength = 3)]
@@ -25,11 +25,11 @@ namespace WebPhoneEcommerce.Models
 
         [NotMapped]
         [Required]
-        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        [Compare("Password")]
         public string ConfirmPassword { get; set; }
         public string FullName()
         {
-            return this.FirstName + " " + this.LastName;
+            return FirstName + " " + LastName;
         }
 
     }
