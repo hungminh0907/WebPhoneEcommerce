@@ -1,7 +1,12 @@
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
+using WebPhoneEcommerce.Areas.Admin.Models.TaiKhoan;
 using WebPhoneEcommerce.Models.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -9,6 +14,14 @@ builder.Services.AddDbContext<PhoneEcommerceContext>(o =>
 {
     o.UseSqlServer(builder.Configuration.GetConnectionString("connectString"));
 });
+
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient("Client").AddHttpMessageHandler<AuthHandled>();
+builder.Services.AddTransient<AuthHandled>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

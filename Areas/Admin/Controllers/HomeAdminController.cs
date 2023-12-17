@@ -15,9 +15,13 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
     {
 
         private readonly PhoneEcommerceContext _context;
-        public HomeAdminController(PhoneEcommerceContext context)
+        private readonly IConfiguration _config;
+        private readonly string _apiHost = "";
+        public HomeAdminController(PhoneEcommerceContext context, IConfiguration config)
         {
             _context = context;
+            _config = config;
+            _apiHost = config.GetValue<string>("UrlHost:ApiHost");
         }
         [Route("index")]
         public IActionResult Index()
@@ -38,7 +42,9 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
 
         public async Task<List<ViewModelCurd>>getCurd()
         {
-            string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
+            //string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
+            string Url = _apiHost + @"api/ApiCurd/Show-danh-sach";
+
             using (var client = new HttpClient())
             {
                 var res = await client.GetAsync(Url) ;

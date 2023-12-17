@@ -7,6 +7,7 @@
     <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
     <link rel="stylesheet" href="../assets/css/styles.min.css" />
     <link href="~/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/taikhoan.css" rel="stylesheet" />
 
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -140,7 +141,8 @@
                         </a>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                        @* <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false"> *@
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="TaiKhoan" asp-action="DangKy" aria-expanded="false">
                             <span>
                                 <i class="ti ti-user-plus"></i>
                             </span>
