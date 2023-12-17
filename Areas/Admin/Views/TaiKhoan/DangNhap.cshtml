@@ -14,8 +14,9 @@
         <form class="form" asp-area="Admin" asp-controller="TaiKhoan" asp-action="DangNhap" method="post">
             <span class="title">Login</span>
             <div class="form-container">
-                <input type="email" name="Email" class="input" placeholder="Email">
-                <input type="password" name="Password" class="input" placeholder="Password">
+                <input type="email" label="Email" name="Email" class="input" placeholder="Email">
+                <input type="text" name="Username" class="input" placeholder="User Name">
+                <input type="password" label="Password" name="Password" class="input" placeholder="Password">
             </div>
             <button type="submit">Login</button>
         </form>

@@ -6,9 +6,11 @@ using WebPhoneEcommerce.Models.Entity;
 using WebPhoneEcommerce.Common;
 using WebPhoneEcommerce.Models.Curd;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
+    [Authorize(Roles ="admin")]
     [Area("Admin")]
     [Route("/admin")]
     public class HomeAdminController : Controller
@@ -23,6 +25,8 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             _config = config;
             _apiHost = config.GetValue<string>("UrlHost:ApiHost");
         }
+
+
         [Route("index")]
         public IActionResult Index()
         {
