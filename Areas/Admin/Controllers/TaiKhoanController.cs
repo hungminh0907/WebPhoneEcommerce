@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using WebPhoneEcommerce.Areas.Admin.Models.TaiKhoan;
+using WebPhoneEcommerce.Areas.Admin.Views.TaiKhoan;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
@@ -29,6 +30,54 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             return View();
         }
 
+        [Route("dang-nhap")]
+        [HttpPost]
+        public async Task<IActionResult> DangNhap(InputDangNhap input)
+        {
+            //string url = "http://localhost:5275/api/Authentication/auth";
+            string url = _apiHost + @"api/Authentication/auth";
+            if (ModelState.IsValid)
+            {
+                var data = new MultipartFormDataContent();
+                data.Add(new StringContent(input.Email), "Email");
+                data.Add(new StringContent(input.Username), "Username");
+                data.Add(new StringContent(EncryptPassword(input.Password)), "Password");                
+                data.Add(new StringContent(input.Role), "Role");
+
+                var res = await _httpClient.PostAsync(url, data);
+
+                if (res.IsSuccessStatusCode)
+                {
+                    var token = await res.Content.ReadAsAsync<OutputToken>();
+                    return await AccessLogin(token.Token);
+                }
+            }
+
+            return View();
+        }
+        private async Task<IActionResult> AccessLogin(string Token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var token = handler.ReadToken(Token) as JwtSecurityToken;
+            var identity = new ClaimsIdentity(token.Claims, "Token");
+            var principal = new ClaimsPrincipal(identity);
+
+            var role = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role)?.Value;
+            var username = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            Response.Cookies.Append("Username", username);
+            Response.Cookies.Append("Token", token.ToString());
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+            return await CheckRole(role);
+        }
+        private async Task<IActionResult> CheckRole(string? role)
+        {
+            if (role == "admin") return RedirectToAction("Index", "HomeAdmin", new { Areas = "Admin" });
+            if (role == "user") return RedirectToAction("Index", "Home", new { Areas = "" });//User
+            //if (role == "nhansu") return RedirectToAction("Index", "Home", new { Areas = "NhanSu" });
+            return Redirect("/");
+        }
 
 
 
@@ -70,6 +119,13 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
                 var hash = sha256.ComputeHash(data);
                 return Convert.ToBase64String(hash);
             }
+        }
+
+
+        [Route("access-denied")]
+        public IActionResult TuChoi()
+        {
+            return View();
         }
 
 

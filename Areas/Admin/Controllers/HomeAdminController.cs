@@ -6,13 +6,11 @@ using WebPhoneEcommerce.Models.Entity;
 using WebPhoneEcommerce.Common;
 using WebPhoneEcommerce.Models.Curd;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Http;
-using System.Security.Policy;
-using System.Threading.Tasks;
-using System.ComponentModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
+    [Authorize(Roles ="admin")]
     [Area("Admin")]
     [Route("/admin")]
     public class HomeAdminController : Controller
@@ -27,6 +25,8 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             _config = config;
             _apiHost = config.GetValue<string>("UrlHost:ApiHost");
         }
+
+
         [Route("index")]
         public IActionResult Index()
         {
@@ -85,46 +85,27 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
         }
         [Route("Them")]
         [HttpPost]
-        public async Task< IActionResult> addSP(InputCurdAD input)
+        public IActionResult addSP(string ProductId, string ProductName, string Description, decimal UnitPrice, IFormFile hinhanh)
         {
-            string Url = "https://localhost:7007/api/ApiCurd/them-san-pham";
-            using (var client = new HttpClient())
+            if (!string.IsNullOrEmpty(ProductId))
             {
-                var data = new MultipartFormDataContent();
-                data.Add(new StringContent(input.ProductId));
-                data.Add(new StringContent(input.ProductName));
-                data.Add(new StringContent(input.Description));
-                data.Add(new StringContent(input.UnitPrice));
-                //data.Add(new Int32Converter(input.UnitPrice));
+                Product product = new Product();
+                product.Id = Guid.NewGuid().ToString();
+                product.ProductId = ProductId;
+                product.ProductName = ProductName;
+                product.Description = Description;
+                product.UnitPrice = UnitPrice;
+                product.Filter = ProductId + " " + ProductName.ToLower() + " " + Utility.ConvertToUnsign(Description.ToLower());
+                product.Urlimg = UploadFiles.SaveImage(hinhanh);
 
-                var listImages = new List<string>();
-                foreach (var img in input.Images  )
-                {
-                    var imgPath = UploadFiles.SaveImage(img);
-                    var imgStream = new MemoryStream(System.IO.File.ReadAllBytes(imgPath));
-                    var imgContent = new ByteArrayContent(imgStream.ToArray());
-                    data.Add(imgContent, "Img ", img.FileName);
-                }
-                var res = await client.PostAsync(Url, data);
-                var resPut = await client.PutAsync(Url, data);
-                if (res.IsSuccessStatusCode)
-                {
-                    foreach (var path in listImages)
-                    {
-                        
-                        UploadFiles.RemoveImage(path);
-                    }
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    //co the them cac doan thong bao loi~
-                    return View();
-                }
+                _context.Add(product);
+                _context.SaveChanges();
+                return RedirectToAction("DanhSach");
             }
+            return View();
         }
         [Route("Cap-Nhat")]
-            public IActionResult updateSP(string id)
+        public IActionResult updateSP(string id)
         {
             var item = _context.Products.FirstOrDefault(x => x.Id == id);
             return View(item);
