@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.EntityFrameworkCore;
 using WebPhoneEcommerce.Areas.Admin.Models.TaiKhoan;
@@ -5,7 +7,6 @@ using WebPhoneEcommerce.Models.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
 
 // Add services to the container.
@@ -20,6 +21,18 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient("Client").AddHttpMessageHandler<AuthHandled>();
 builder.Services.AddTransient<AuthHandled>();
 
+builder.Services.AddAuthentication(o =>
+{
+    o.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    o.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    o.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;    
+})
+    .AddCookie(o =>
+    {
+        o.LoginPath = "/dang-nhap";
+        o.AccessDeniedPath = "/access-denied";
+        o.LogoutPath = "/logout";
+    });
 
 
 var app = builder.Build();
@@ -33,6 +46,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
