@@ -66,7 +66,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             var username = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
 
             Response.Cookies.Append("Username", username);
-            Response.Cookies.Append("Token", token.ToString());
+            Response.Cookies.Append("Token", Token);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
             return await CheckRole(role);
@@ -74,6 +74,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
         private async Task<IActionResult> CheckRole(string? role)
         {
             if (role == "admin") return RedirectToAction("Index", "HomeAdmin", new { Areas = "Admin" });
+            //if (role == "user") return RedirectToAction("Index", "Product", new { Areas = "" });//User
             if (role == "user") return RedirectToAction("Index", "Home", new { Areas = "" });//User
             //if (role == "nhansu") return RedirectToAction("Index", "Home", new { Areas = "NhanSu" });
             return Redirect("/");
@@ -129,6 +130,13 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
         }
 
 
-
+        [Route("logout")]
+        public async Task<IActionResult> DangXuat()
+        {
+            await HttpContext.SignOutAsync();
+            Response.Cookies.Delete("Username");
+            Response.Cookies.Delete("Token");
+            return RedirectToAction("DangNhap", "TaiKhoan", new { Areas = "Admin" });
+        }
     }
 }
