@@ -65,14 +65,19 @@
                                 </div>
                             </div>
                              <a href="contact.html" class="nav-item nav-link">Contact</a>
+
+
                             @* <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="nav-item nav-link">Login</a> *@
-                        </div>
+                        @* </div>
                         <a class="fa fa-user py-2 px-4 d-none d-lg-inline-block" asp-area="Admin" asp-controller="TaiKhoan" asp-action="DangKy">
                             <span> Register </span>
                         </a>
                         <a class="fa fa-user py-2 px-4 d-none d-lg-inline-block" asp-area="Admin" asp-controller="TaiKhoan" asp-action="DangNhap">
                             <span> Login </span>
-                        </a>                        
+                        </a> *@
+                            <partial name="_LoginPartial" />
+
+
                     </div>
                 </nav>
             </div>

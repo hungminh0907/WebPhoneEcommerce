@@ -7,6 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using WebPhoneEcommerce.Areas.Admin.Models.TaiKhoan;
 using WebPhoneEcommerce.Areas.Admin.Views.TaiKhoan;
+using NuGet.Common;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
@@ -34,6 +35,13 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> DangNhap(InputDangNhap input)
         {
+            //đăng nhập luôn khi đã có token trong cookie
+            if (input.Token != "Default")
+            {
+                return await AccessLogin(input.Token);
+            }            
+
+            
             //string url = "http://localhost:5275/api/Authentication/auth";
             string url = _apiHost + @"api/Authentication/auth";
             if (ModelState.IsValid)

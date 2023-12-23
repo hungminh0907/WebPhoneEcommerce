@@ -17,6 +17,14 @@
                 <input type="email" label="Email" name="Email" class="input" placeholder="Email">
                 <input type="text" name="Username" class="input" placeholder="User Name">
                 <input type="password" label="Password" name="Password" class="input" placeholder="Password">
+                @if (Context.Request.Cookies.ContainsKey("UserName"))
+                {
+                    <input type="text" name="Token" class="input" placeholder="Token" value=@Context.Request.Cookies["Token"] hidden="hidden">
+                }
+                else
+                {
+                    <input type="text" name="Token" class="input" placeholder="Token" value="Default" hidden="hidden">
+                }
             </div>
             <button type="submit">Login</button>
         </form>
