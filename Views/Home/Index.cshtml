@@ -1,9 +1,9 @@
-﻿
+﻿@model List<WebPhoneEcommerce.Models.Curd.ViewModelCurd>
 @{
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model List<WebPhoneEcommerce.Models.Curd.ViewModelCurd>
+
 <!-- Product Zam Zung Start -->
 <div class="container-fluid py-5">
     <div class="container">
@@ -30,7 +30,7 @@
                         <small class="fa fa-star text-primary"></small>
                         <small>(99)</small>
                     </div>
-                       <a href="http://localhost:5294/chi-tiet-san-pham" class="h6 d-inline-block mb-2"></a>
+                       <a href="http://localhost:5294/chi-tiet-san-pham" class="h6 d-inline-block mb-2">@item.ProductName</a>
                        <h5 class="text-primary mb-3">@item.UnitPrice</h5>
                     <a href="http://localhost:5294/chi-tiet-san-pham" class="btn btn-outline-primary px-3">Thêm vào giỏ hàng</a>
                 </div>
