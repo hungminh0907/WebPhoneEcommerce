@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebPhoneEcommerce.Models;
+using WebPhoneEcommerce.Models.Entity;
 
 namespace WebPhoneEcommerce.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly PhoneEcommerceContext _context;
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -15,7 +18,9 @@ namespace WebPhoneEcommerce.Controllers
 
         public IActionResult Index()
         {
-            return View();
+           // var items = _context.Products.Where(c => c.Filter.Contains((timkiem ?? "").ToLower())).ToList();
+            var lstProduct = _context.Products.ToList();
+            return View(lstProduct);
         }
 
         public IActionResult Privacy()
