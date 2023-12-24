@@ -18,9 +18,8 @@ namespace WebPhoneEcommerce.Controllers
 
         public IActionResult Index()
         {
-           // var items = _context.Products.Where(c => c.Filter.Contains((timkiem ?? "").ToLower())).ToList();
-            var lstProduct = _context.Products.ToList();
-            return View(lstProduct);
+           
+            return View();
         }
 
         public IActionResult Privacy()

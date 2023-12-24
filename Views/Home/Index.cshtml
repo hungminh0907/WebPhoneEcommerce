@@ -3,117 +3,45 @@
     ViewData["Title"] = "Home Page";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
-    <!-- Hero Start -->
-    <div class="container-fluid bg-primary hero-header mb-5">
-        <div class="container">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 text-center text-lg-start">
-                    <h3 class="fw-light text-white animated slideInRight">Natural & Organic</h3>
-                    <h1 class="display-4 text-white animated slideInRight">Hair <span class="fw-light text-dark">Shampoo</span> For Healthy Hair</h1>
-                    <p class="text-white mb-4 animated slideInRight">Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit. Etiam feugiat rutrum lectus, sed auctor ex malesuada id. Orci varius natoque penatibus et
-                        magnis dis parturient montes.</p>
-                    <a href="" class="btn btn-dark py-2 px-4 me-3 animated slideInRight">Shop Now</a>
-                    <a href="" class="btn btn-outline-dark py-2 px-4 animated slideInRight">Contact Us</a>
+@model List<WebPhoneEcommerce.Models.Curd.ViewModelCurd>
+<!-- Product Zam Zung Start -->
+<div class="container-fluid py-5">
+    <div class="container">
+        <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="text-primary mb-3">IPHONE</h1>
+        </div>
+        <div class="row g-4" asp-area="Admin"
+             asp-controller="HomeAdmin"
+             asp-action="DanhSach"
+             method="get">
+             @if (Model != null)
+                {
+            int i = 0;
+                foreach (var item in Model)
+                {
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                <div class="product-item text-center border h-100 p-4">
+                    <img class="img-fluid mb-4" src="~/img/logozamzung.png" alt="">
+                    <div class="mb-2">
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small class="fa fa-star text-primary"></small>
+                        <small>(99)</small>
+                    </div>
+                       <a href="http://localhost:5294/chi-tiet-san-pham" class="h6 d-inline-block mb-2"></a>
+                       <h5 class="text-primary mb-3">@item.UnitPrice</h5>
+                    <a href="http://localhost:5294/chi-tiet-san-pham" class="btn btn-outline-primary px-3">Thêm vào giỏ hàng</a>
                 </div>
-                <div class="col-lg-6">
-                <img class="img-fluid animated pulse infinite" src="~/img/ipwhile.jpg" alt="">
-                </div>
-            </div>
+             </div>
+                }
+            }
         </div>
     </div>
-    <!-- Hero End --> 
-
-    <!-- Deal Start -->
-    <div class="container-fluid deal bg-primary my-5 py-5">
-        <div class="container py-5">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.1s">
-                    <img class="img-fluid animated pulse infinite" src="img/shampoo-2.png">
-                </div>
-                <div class="col-lg-6 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="bg-white text-center p-4">
-                        <div class="border p-4">
-                            <p class="mb-2">Natural & Organic Shampoo</p>
-                            <h2 class="fw-bold text-uppercase mb-4">Deals of the Day</h2>
-                            <h1 class="display-4 text-primary mb-4">$99.99</h1>
-                            <h5>Fresh Organic Shampoo</h5>
-                            <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit. Etiam feugiat rutrum lectus sed auctor.</p>
-                            <div class="row g-0 cdt mb-4">
-                                <div class="col-3">
-                                    <h1 class="display-6" id="cdt-days"></h1>
-                                </div>
-                                <div class="col-3">
-                                    <h1 class="display-6" id="cdt-hours"></h1>
-                                </div>
-                                <div class="col-3">
-                                    <h1 class="display-6" id="cdt-minutes"></h1>
-                                </div>
-                                <div class="col-3">
-                                    <h1 class="display-6" id="cdt-seconds"></h1>
-                                </div>
-                            </div>
-                            <a class="btn btn-primary py-2 px-4" href="">Shop Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Deal End -->
-
-   <!-- How To Use Start -->
-   @*  <div class="container-fluid how-to-use bg-primary my-5 py-5">
-    <!-- HOT DEAL SECTION -->
-    <div id="hot-deal" class="section">
-        <!-- container -->
-        <div class="container">
-            <!-- row -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="hot-deal">
-                        <ul class="hot-deal-countdown">
-                            <li>
-                                <div>
-                                    <h3>02</h3>
-                                    <span>Days</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <h3>10</h3>
-                                    <span>Hours</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <h3>34</h3>
-                                    <span>Mins</span>
-                                </div>
-                            </li>
-                            <li>
-                                <div>
-                                    <h3>60</h3>
-                                    <span>Secs</span>
-                                </div>
-                            </li>
-                        </ul>
-                        <h2 class="text-uppercase">hot deal this week</h2>
-                        <p>New Collection Up to 50% OFF</p>
-                        <a class="primary-btn cta-btn" href="#">Shop now</a>
-                    </div>
-                </div>
-            </div>
-            <!-- /row -->
-        </div>
-        <!-- /container -->
-    </div> *@
- 
 
 
+    <!-- Product End -->
     <!-- Product Start -->
    @*  <div class="container-fluid py-5">
         <div class="container">
@@ -191,144 +119,6 @@
     </div> *@
 <!-- Product End -->
    
-    <!-- Product Zam Zung Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="mx-auto text-center wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
-                <h1 class="text-primary mb-3">IPHONE</h1>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                    <div class="product-item text-center border h-100 p-4">
-                    <img class="img-fluid mb-4"  src="~/img/logozamzung.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                    <a href="http://localhost:5294/chi-tiet-san-pham" class="h6 d-inline-block mb-2">Hair Shining Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                    <a href="http://localhost:5294/chi-tiet-san-pham" class="btn btn-outline-primary px-3">Thêm vào giỏ hàng</a>
-                    </div>
-                </div>
-           @*  <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                <div class="product-item text-center border h-100 p-4">
-                    <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                    <div class="mb-2">
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small>(99)</small>
-                    </div>
-                    <a href="" class="h6 d-inline-block mb-2">Hair Shining Shampoo</a>
-                    <h5 class="text-primary mb-3">$99.99</h5>
-                    <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                <div class="product-item text-center border h-100 p-4">
-                    <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                    <div class="mb-2">
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small>(99)</small>
-                    </div>
-                    <a href="" class="h6 d-inline-block mb-2">Hair Shining Shampoo</a>
-                    <h5 class="text-primary mb-3">$99.99</h5>
-                    <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                <div class="product-item text-center border h-100 p-4">
-                    <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                    <div class="mb-2">
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small>(99)</small>
-                    </div>
-                    <a href="" class="h6 d-inline-block mb-2">Hair Shining Shampoo</a>
-                    <h5 class="text-primary mb-3">$99.99</h5>
-                    <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
-                <div class="product-item text-center border h-100 p-4">
-                    <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                    <div class="mb-2">
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small class="fa fa-star text-primary"></small>
-                        <small>(99)</small>
-                    </div>
-                    <a href="" class="h6 d-inline-block mb-2">Hair Shining Shampoo</a>
-                    <h5 class="text-primary mb-3">$99.99</h5>
-                    <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                </div>
-            </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Anti-dandruff Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-1.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Anti Hair Fall Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
-                    <div class="product-item text-center border h-100 p-4">
-                        <img class="img-fluid mb-4" src="img/product-2.png" alt="">
-                        <div class="mb-2">
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small class="fa fa-star text-primary"></small>
-                            <small>(99)</small>
-                        </div>
-                        <a href="" class="h6 d-inline-block mb-2">Hair Growing Shampoo</a>
-                        <h5 class="text-primary mb-3">$99.99</h5>
-                        <a href="" class="btn btn-outline-primary px-3">Add To Cart</a>
-                    </div>
-                </div>
-            </div> *@
-        </div>
-    </div>
-    <!-- Product End -->
+    
 
    
