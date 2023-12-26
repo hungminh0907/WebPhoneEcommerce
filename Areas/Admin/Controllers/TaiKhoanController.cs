@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using WebPhoneEcommerce.Areas.Admin.Models.TaiKhoan;
 using WebPhoneEcommerce.Areas.Admin.Views.TaiKhoan;
-using NuGet.Common;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
