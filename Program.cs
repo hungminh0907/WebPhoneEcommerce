@@ -7,6 +7,10 @@ using WebPhoneEcommerce.Models.Entity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(o =>
+    o.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials().Build()));
+
+
 builder.Services.AddHttpClient();
 
 // Add services to the container.
@@ -55,4 +59,4 @@ app.MapControllerRoute(
 
 app.Run();
 
-//Code add testing push git (Phuong: 04/11/23)
+

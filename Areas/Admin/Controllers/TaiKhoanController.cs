@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 using WebPhoneEcommerce.Areas.Admin.Models.TaiKhoan;
 using WebPhoneEcommerce.Areas.Admin.Views.TaiKhoan;
-
+using NuGet.Common;
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
     [Area("Admin")]
@@ -105,10 +105,10 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 var data = new MultipartFormDataContent();
-                data.Add(new StringContent(input.Email), "email");
-                data.Add(new StringContent(input.Username), "username");
-                data.Add(new StringContent(EncryptPassword(input.Password)), "password");
-                data.Add(new StringContent(input.Role), "role");
+                data.Add(new StringContent(input.Email), "Email");
+                data.Add(new StringContent(input.Username), "Username");
+                data.Add(new StringContent(EncryptPassword(input.Password)), "Password");
+                data.Add(new StringContent(input.Role), "Role");
 
                 var res = await _httpClient.PostAsync(url, data);
                 //var result = await res.Content.ReadAsAsync<OutputDangKy>();
