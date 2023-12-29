@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
-    [Authorize(Roles ="admin")]
+    [Authorize(Roles ="admin,Admin,ADMIN")]
     [Area("Admin")]
     [Route("/admin")]
     public class HomeAdminController : Controller

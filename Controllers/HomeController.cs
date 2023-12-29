@@ -30,8 +30,8 @@ namespace WebPhoneEcommerce.Controllers
         }
         public async Task<List<ViewModelCurd>> getCurd()
         {
-            string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
-            //string Url = _apiHost + @"api/ApiCurd/Show-danh-sach";
+            //string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
+            string Url = _apiHost + @"api/ApiCurd/Show-danh-sach";
 
             using (var client = new HttpClient())
             {
@@ -51,6 +51,7 @@ namespace WebPhoneEcommerce.Controllers
                         ShowList.Description = item.Description;
                         ShowList.UnitPrice = item.UnitPrice;
 
+                       
                         ShowList.Urlimg = JsonConvert.DeserializeObject<List<ResultApiImg>>(item.Urlimg);
 
 
