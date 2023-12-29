@@ -24,9 +24,9 @@ namespace WebPhoneEcommerce.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var Items = await getCurd();
-            return View(Items);
-            //return View();
+            //var Items = await getCurd();
+            //return View(Items);
+            return View();
         }
         public async Task<List<ViewModelCurd>> getCurd()
         {
