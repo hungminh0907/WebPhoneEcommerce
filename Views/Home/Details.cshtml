@@ -1,0 +1,148 @@
+﻿@model WebPhoneEcommerce.Models.Curd.ResultApi
+@* @model WebPhoneEcommerce.Models.Entity.Product  *@
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main role="main">
+    <!-- Block content - Đục lỗ trên giao diện bố cục chung, đặt tên là `content` -->
+    <div class="container mt-4">
+        <div id="thongbao" class="alert alert-danger d-none face" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <div class="card">
+            <form id="formabc"  method="post" enctype="multipart/form-data">
+               @if (Model != null)
+                {
+                    <div class="container-fliud">
+                        <input type="hidden" name="sp_ma" id="sp_ma" value="5">@Model.ProductId
+                        <input type="hidden" name="sp_ten" id="sp_ten" value="">@Model.ProductName
+                        <input type="hidden" name="sp_gia" id="sp_gia" value="">
+                        <input type="hidden" name="hinhdaidien" id="hinhdaidien">
+                        <div class="wrapper row">
+                            <div class="preview col-md-6">
+                                <div class="preview-pic tab-content">
+                                    <div class="tab-pane" id="pic-1">
+                                        <img id="showimage" alt="..." />
+                                    </div>
+                                    @* <div class="tab-pane" id="pic-2">
+                                        <img src="@("http://localhost:7007" + Model.Urlimg[0].Urlimg)"/>
+                                    </div> *@
+                                </div>
+                                <ul class="preview-thumbnail nav nav-tabs">
+                                    <li class="active">
+                                        <a data-target="#pic-1" data-toggle="tab" class="">
+                                            <img src="~/img/samsung-galaxy-tab.jpg" />
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a data-target="#pic-2" data-toggle="tab" class="">
+                                            <img src="~/img/zamzungtab.png" />
+                                        </a>
+                                    </li>
+                                    <li class="">
+                                        <a data-target="#pic-3" data-toggle="tab" class="active">
+                                            <img src="~/img/logozamzung.png" />
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="details col-md-6">
+                                <h3 class="product-title"></h3>
+                                <div class="rating">
+                                    <div class="stars">
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star checked"></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                    <span class="review-no">999 reviews</span>
+                                </div>
+                                <p class="product-description"></p>
+                                <h4 class="price">Giá hiện tại:@Model.UnitPrice <span>vnđ</span></h4>
+                                <p class="vote">
+                                    <strong>100%</strong> hàng <strong>Chất lượng</strong>, đảm bảo
+                                    <strong>
+                                        Uy
+                                        tín
+                                    </strong>!
+                                </p>
+                                <h5 class="colors">
+                                    colors:
+                                    <span class="color black not-available" data-toggle="tooltip"
+                                          title="Hết hàng"></span>
+                                    <span @* class=" color white " *@> </span>
+
+                                </h5>
+                                <div class="form-group">
+                                    <label for="soluong">Số lượng đặt mua:</label>
+                                    <input type="number" class="form-control" id="soluong" name="soluong">
+                                </div>
+                                <div >
+                                    <a asp-controller="Carditem"
+                                       asp-action="Card"
+                                       asp-route-ProductId="@Model.ProductId"> 
+                                    <button style="submit" class="add-to-cart btn btn-default" id="btnThemVaoGioHang" onclick="AddCart()">Thêm vào giỏ</button>
+                                    <a class="like btn btn-default" href="#"><span class="fa fa-heart"></span></a>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                }
+            </form>
+            
+                <div class="card">
+                <div class="container-fluid">
+                    <h3>Thông tin chi tiết về Sản phẩm</h3>
+                    <div class="row">
+                        <div class="col">
+                            Vi xử lý Dual-core 1 Cortex-A9 tốc độ 1GHz
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+       
+        </div>
+    </div>
+    <!-- End block content -->
+</main>
+
+
+<script>
+    function AddCart() {
+        var ma = $('#sp_ma').val();
+        var sl = $('#soluong').val();
+        console.log(ma, sl);
+        console.log("TEST")
+        $(function () {
+            $("#btnSearch").off("click.search").on("click.search", function () {
+                if ($("#SearchBy").val() != '') {
+                    $.ajax({
+                        url: 'http://localhost:7007/api/cart',
+                        method: "POST",
+                        data: { 'name': ma, 'sl': sl },
+                        dataType: 'json',
+                        success: function (data) {
+                            $('#dvBanks').html(data);
+                        }
+                    });
+                }
+                else {
+                    alert('Please enter Bank Name');
+                }
+            });
+        }
+    });
+
+    }
+
+
+</script>
+@*<input type="text" class="form-control" id="UnitPrice" name="UnitPrice" value="@Model.UnitPrice" aria-describedby="">*@

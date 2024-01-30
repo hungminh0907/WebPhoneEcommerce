@@ -87,6 +87,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult addSP(string ProductId, string ProductName, string Description, decimal UnitPrice, IFormFile hinhanh)
         {
+            string Url = _apiHost + @"api/ApiCurd/cap-nhat-san-pham";
             if (!string.IsNullOrEmpty(ProductId))
             {
                 Product product = new Product();
