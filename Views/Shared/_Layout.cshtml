@@ -42,13 +42,20 @@
         <div class="container-fluid sticky-top">
             <div class="container">
                 <nav class="navbar navbar-expand-lg navbar-light p-0">
+                    
+                    <div class="navbar-nav ms-auto" style="">
+                        <partial name="_LoginPartial" />
+                    </div>
+                </nav>
+                <nav class="navbar navbar-expand-lg navbar-light p-0">
                     <a href="index.html" class="navbar-brand">
-                        <h2 class="text-white">SHOP</h2>
+                        <h2 class="text-white">Shop NOte </h2>
                     </a>
                     <button type="button" class="navbar-toggler ms-auto me-0" data-bs-toggle="collapse"
                             data-bs-target="#navbarCollapse">
                         <span class="navbar-toggler-icon"></span>
                     </button>
+
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ms-auto">
                             <a href="index.html" class="nav-item nav-link active">Home</a>
@@ -62,24 +69,17 @@
                                     <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                                     <a href="blog.html" class="dropdown-item">Blog Articles</a>
                                     <a href="404.html" class="dropdown-item">404 Page</a>
-                                    
+
                                 </div>
                             </div>
-                             <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="contact.html" class="nav-item nav-link" >
+                                <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 576 512" aria-hidden="true">
+                                    <path d="M24 0C10.7 0 0 10.7 0 24S10.7 48 24 48H69.5c3.8 0 7.1 2.7 7.9 6.5l51.6 271c6.5 34 36.2 58.5 70.7 58.5H488c13.3 0 24-10.7 24-24s-10.7-24-24-24H199.7c-11.5 0-21.4-8.2-23.6-19.5L170.7 288H459.2c32.6 0 61.1-21.8 69.5-53.3l41-152.3C576.6 57 557.4 32 531.1 32h-411C111 12.8 91.6 0 69.5 0H24zM131.1 80H520.7L482.4 222.2c-2.8 10.5-12.3 17.8-23.2 17.8H161.6L131.1 80zM176 512a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm336-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0z" fill="currentColor"></path>
+                                </svg>
+                                
+                            </a>
+                        </div>
 
-
-                            @* <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="nav-item nav-link">Login</a> *@
-                        @* </div>
-                        <a class="fa fa-user py-2 px-4 d-none d-lg-inline-block" asp-area="Admin" asp-controller="TaiKhoan" asp-action="DangKy">
-                            <span> Register </span>
-                        </a>
-                        <a class="fa fa-user py-2 px-4 d-none d-lg-inline-block" asp-area="Admin" asp-controller="TaiKhoan" asp-action="DangNhap">
-                            <span> Login </span>
-                        </a> *@
-                            <partial name="_LoginPartial" />
-
-
-                    </div>
                 </nav>
             </div>
         </div>
@@ -98,7 +98,7 @@
                         elit. Etiam feugiat rutrum lectus, sed auctor ex malesuada id. Orci varius natoque penatibus et
                         magnis dis parturient montes.
                     </p>
-                    <a href="" class="btn btn-dark py-2 px-4 me-3 animated slideInRight">Shop Now</a>
+                    <a href="" class="btn btn-dark py-2 px-4 me-3 animated slideInRight" >Shop Now</a>
                     <a href="" class="btn btn-outline-dark py-2 px-4 animated slideInRight">Contact Us</a>
                 </div>
                 <div class="col-lg-6">

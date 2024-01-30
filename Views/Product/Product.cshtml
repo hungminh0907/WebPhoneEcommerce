@@ -1,4 +1,4 @@
-﻿
+﻿@model List<WebPhoneEcommerce.Models.Curd.ViewModelCurd>
 @{
     ViewData["Title"] = "Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,8 +11,20 @@
                 <span aria-hidden="true">×</span>
             </button>
         </div>
-
-        <div class="card">
+        <div class="card"
+            asp-area="Admin"
+             asp-controller="HomeAdmin"
+             asp-action="DanhSach"
+             method="get">
+             @if (Model != null)
+                {
+                int i = 0;
+                foreach (var item in Model)
+                {
+                }
+            }
+            
+        
             <div class="container-fliud">
                 <form name="frmsanphamchitiet" id="frmsanphamchitiet" method="post"
                       action="/php/twig/frontend/giohang/themvaogiohang">

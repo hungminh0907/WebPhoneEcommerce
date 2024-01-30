@@ -366,3 +366,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Areas/Admin/Controllers/HomeAdminController.cs

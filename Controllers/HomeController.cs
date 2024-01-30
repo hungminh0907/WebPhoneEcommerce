@@ -4,6 +4,11 @@ using System.Diagnostics;
 using WebPhoneEcommerce.Models;
 using WebPhoneEcommerce.Models.Curd;
 using WebPhoneEcommerce.Models.Entity;
+using Common.Utilities;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
+using WebPhoneEcommerce.Common;
+
 
 namespace WebPhoneEcommerce.Controllers
 {
@@ -24,9 +29,9 @@ namespace WebPhoneEcommerce.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //var Items = await getCurd();
-            //return View(Items);
-            return View();
+            var Items = await getCurd();
+            return View(Items);
+            //return View();
         }
         public async Task<List<ViewModelCurd>> getCurd()
         {
@@ -66,7 +71,38 @@ namespace WebPhoneEcommerce.Controllers
         {
             return View();
         }
+        [Route("details")]
+        public async Task<IActionResult> Details(string ProductId)
+        {
+            var Items = await GetDetails(ProductId);
+            return View(Items);
+        }
+        [HttpGet]
+        public async Task<Product> GetDetails(string ProductId) 
+        {
+            //string Url = _apiHost + @"/Show-Product";
+            string Url = Constrain.HostApi + Constrain.GetApi.Details;
 
+            using (var client = new HttpClient())
+            {
+                var res = await client.GetAsync(Url);
+
+                if (res.IsSuccessStatusCode)
+                {
+                    //if () {
+                    //    var ViewlistItem = new List<ViewModelCurd>();
+                    //}
+                    
+
+                  
+                }
+                
+             }
+            //return View();
+        }
+
+             
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
