@@ -139,7 +139,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
                     listimg.Add(imgPath);
                     var imgStream = new MemoryStream(System.IO.File.ReadAllBytes(wwwroot + imgPath));
                     var imgContent = new ByteArrayContent(imgStream.ToArray());
-                    data.Add(imgContent, "Images", img.FileName);
+                    data.Add(imgContent, "Urlimg", img.FileName);
                 }
 
                 var res = await client.PutAsync(Url, data);
