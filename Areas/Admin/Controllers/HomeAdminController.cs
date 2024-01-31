@@ -7,6 +7,8 @@ using WebPhoneEcommerce.Common;
 using WebPhoneEcommerce.Models.Curd;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
+using System.ComponentModel;
+using System.Globalization;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
@@ -19,8 +21,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
         private readonly PhoneEcommerceContext _context;
         private readonly IConfiguration _config;
         private readonly string _apiHost = "";
-        private string wwwroot;
-
+        private static string wwwroot = Directory.GetCurrentDirectory() + "\\wwwroot";
         public HomeAdminController(PhoneEcommerceContext context, IConfiguration config)
         {
             _context = context;
@@ -46,16 +47,16 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             return View(Items);
         }
 
-        public async Task<List<ViewModelCurd>> getCurd()
+        public async Task<List<ViewModelCurd>>getCurd()
         {
-            //string Url = "https://localhost:70071/api/ApiCurd/Show-danh-sach";
-           string Url = _apiHost + @"api/ApiCurd/Show-danh-sach1";
+            //string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
+            string Url = _apiHost + @"api/ApiCurd/Show-danh-sach";
 
             using (var client = new HttpClient())
             {
-                var res = await client.GetAsync(Url);
+                var res = await client.GetAsync(Url) ;
 
-                if (res.IsSuccessStatusCode)
+                if(res.IsSuccessStatusCode)
                 {
                     var ViewlistItem = new List<ViewModelCurd>();
 
@@ -79,37 +80,36 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             }
             return null;
         }
-
+        
         [Route("Them")]
         public IActionResult addSP()
         {
             return View();
         }
-        
-
-        [Route("them-khoa", Name = "them")]
+        [Route("Them")]
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
-        //public IActionResult Them(Khoa input)
-        public async Task<IActionResult> Them(InputCurdAD input)
+        public async Task<IActionResult> addSP(UpdateProduct input)
         {
-            string url = "http://localhost:7007/api/ApiCurd/them-san-pham";
+            string url = _apiHost + @"api/ApiCurd/them-san-pham";
+
             using (var client = new HttpClient())
             {
                 var data = new MultipartFormDataContent();
+
                 data.Add(new StringContent(input.ProductId), "ProductId");
                 data.Add(new StringContent(input.ProductName), "ProductName");
                 data.Add(new StringContent(input.Description), "Description");
-                data.Add(new StringContent(input.UnitPrice), "UnitPrice");
+                data.Add(new StringContent((input.UnitPrice??0).ToString("0.##")), "UnitPrice");
+                data.Add(new StringContent(input.ProductId + " " + input.ProductName), "Filter");
 
                 var listimg = new List<string>();
-                foreach (var img in input.Images)
+                foreach (var img in input.Urlimg)
                 {
                     var imgPath = UploadFiles.SaveImage(img);
                     listimg.Add(imgPath);
                     var imgStream = new MemoryStream(System.IO.File.ReadAllBytes(wwwroot + imgPath));
                     var imgContent = new ByteArrayContent(imgStream.ToArray());
-                    data.Add(imgContent, "Images", img.FileName);
+                    data.Add(imgContent, "Urlimg", img.FileName);
                 }
 
                 var res = await client.PostAsync(url, data);
@@ -120,24 +120,84 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
                     {
                         UploadFiles.RemoveImage(path);
                     }
-                    return RedirectToAction("Index");
+                    return RedirectToAction("DanhSach");
                 }
                 else
                 {
-                    //co the them cac doan thong bao loi~
                     return View();
                 }
 
             }
         }
-            [Route("Cap-Nhat")]
+        /*
+        public IActionResult addSP(string ProductId, string ProductName, string Description, decimal UnitPrice, IFormFile hinhanh)
+        {
+            if (!string.IsNullOrEmpty(ProductId))
+            {
+                Product product = new Product();
+                product.Id = Guid.NewGuid().ToString();
+                product.ProductId = ProductId;
+                product.ProductName = ProductName;
+                product.Description = Description;
+                product.UnitPrice = UnitPrice;
+                product.Filter = ProductId + " " + ProductName.ToLower() + " " + Utility.ConvertToUnsign(Description.ToLower());
+                product.Urlimg = UploadFiles.SaveImage(hinhanh);
+
+                _context.Add(product);
+                _context.SaveChanges();
+                return RedirectToAction("DanhSach");
+            }
+            return View();
+        }
+        */
+
+
+        [Route("Cap-Nhat")]
         public IActionResult updateSP(string id)
         {
             var item = _context.Products.FirstOrDefault(x => x.Id == id);
             return View(item);
         }
+
+
         [Route("Cap-Nhat")]
-        [HttpPost]
+        [HttpPut]
+        public async Task<IActionResult> updateSP(string id, UpdateProduct input)
+        {
+            //string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
+            string Url = _apiHost + @"api/ApiCurd/cap-nhat-san-pham" + "/" + id;
+
+            using (var client = new HttpClient())
+            {
+                var data = new MultipartFormDataContent();
+                data.Add(new StringContent(input.ProductId), "ProductId");
+                data.Add(new StringContent(input.ProductName), "ProductName");
+                data.Add(new StringContent(input.Description), "Description");
+                data.Add(new StringContent(input.UnitPrice.ToString()), "UnitPrice");
+                data.Add(new StringContent(input.ProductId + " " + input.ProductName), "Filter");
+
+                var listimg = new List<string>();
+                foreach (var img in input.Urlimg)
+                {
+                    var imgPath = UploadFiles.SaveImage(img);
+                    listimg.Add(imgPath);
+                    var imgStream = new MemoryStream(System.IO.File.ReadAllBytes(wwwroot + imgPath));
+                    var imgContent = new ByteArrayContent(imgStream.ToArray());
+                    data.Add(imgContent, "Urlimg", img.FileName);
+                }
+
+                var res = await client.PutAsync(Url, data);
+
+                if (res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("DanhSach");
+                }
+            }
+
+            return null;
+        }
+
+        /*
         public IActionResult updateSP(string id, string ProductId, string ProductName, string Description, decimal UnitPrice, IFormFile hinhanh)
         {
             var item = _context.Products.FirstOrDefault(x => x.Id == id);
@@ -156,44 +216,51 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             return RedirectToAction("DanhSach");
 
         }
-
+        */
 
         [Route("Xoa")]
-        public async Task<List<ViewModelCurd>> deleteSP(string id)
+
+        public async Task<IActionResult> deleteSP(string id)
         {
-            string Url = Constrain.HostApi + Constrain.DeletApi.Delete;
+            //string Url = "https://localhost:7007/api/ApiCurd/Show-danh-sach";
+            string Url = _apiHost + @"api/ApiCurd/xoa-san-pham"+"/"+id;
+
             using (var client = new HttpClient())
             {
-                var res = await client.GetAsync(Url);
+                var res = await client.DeleteAsync(Url);
 
                 if (res.IsSuccessStatusCode)
-                { }
-            } 
+                {
+                    return RedirectToAction("DanhSach");
+                }
+            }
+            return null;
         }
+        /*
+        public IActionResult deleteSP(string id)
+        {
+            var item = _context.Products.FirstOrDefault(x => x.Id == id);
 
-                   
-        
-        //[Route("Them")]
-        //[HttpPost]
-        //public IActionResult addSP(string ProductId, string ProductName, string Description, decimal UnitPrice, IFormFile hinhanh)
-        //{
-        //    if (!string.IsNullOrEmpty(ProductId))
-        //    {
-        //        Product product = new Product();
-        //        product.Id = Guid.NewGuid().ToString();
-        //        product.ProductId = ProductId;
-        //        product.ProductName = ProductName;
-        //        product.Description = Description;
-        //        product.UnitPrice = UnitPrice;
-        //        product.Filter = ProductId + " " + ProductName.ToLower() + " " + Utility.ConvertToUnsign(Description.ToLower());
-        //        product.Urlimg = UploadFiles.SaveImage(hinhanh);
+            if (item != null)
+            {
+                bool check = UploadFiles.RemoveImage(item.Urlimg ?? "");
 
-        //        _context.Add(product);
-        //        _context.SaveChanges();
-        //        return RedirectToAction("DanhSach");
-        //    }
-        //    return View();
-        //}
+                if (check)
+                {
+                    _context.Remove(item);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    _context.Remove(item);
+                    _context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("DanhSach");
+        }
+        */
+
 
     }
 }
