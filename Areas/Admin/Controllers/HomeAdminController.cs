@@ -8,6 +8,7 @@ using WebPhoneEcommerce.Models.Curd;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Authorization;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace WebPhoneEcommerce.Areas.Admin.Controllers
 {
@@ -87,6 +88,48 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
         }
         [Route("Them")]
         [HttpPost]
+        public async Task<IActionResult> addSP(UpdateProduct input)
+        {
+            string url = _apiHost + @"api/ApiCurd/them-san-pham";
+
+            using (var client = new HttpClient())
+            {
+                var data = new MultipartFormDataContent();
+
+                data.Add(new StringContent(input.ProductId), "ProductId");
+                data.Add(new StringContent(input.ProductName), "ProductName");
+                data.Add(new StringContent(input.Description), "Description");
+                data.Add(new StringContent((input.UnitPrice??0).ToString("0.##")), "UnitPrice");
+                data.Add(new StringContent(input.ProductId + " " + input.ProductName), "Filter");
+
+                var listimg = new List<string>();
+                foreach (var img in input.Urlimg)
+                {
+                    var imgPath = UploadFiles.SaveImage(img);
+                    listimg.Add(imgPath);
+                    var imgStream = new MemoryStream(System.IO.File.ReadAllBytes(wwwroot + imgPath));
+                    var imgContent = new ByteArrayContent(imgStream.ToArray());
+                    data.Add(imgContent, "Urlimg", img.FileName);
+                }
+
+                var res = await client.PostAsync(url, data);
+                var resPut = await client.PutAsync(url, data);
+                if (res.IsSuccessStatusCode)
+                {
+                    foreach (var path in listimg)
+                    {
+                        UploadFiles.RemoveImage(path);
+                    }
+                    return RedirectToAction("DanhSach");
+                }
+                else
+                {
+                    return View();
+                }
+
+            }
+        }
+        /*
         public IActionResult addSP(string ProductId, string ProductName, string Description, decimal UnitPrice, IFormFile hinhanh)
         {
             if (!string.IsNullOrEmpty(ProductId))
@@ -106,6 +149,7 @@ namespace WebPhoneEcommerce.Areas.Admin.Controllers
             }
             return View();
         }
+        */
 
 
         [Route("Cap-Nhat")]
